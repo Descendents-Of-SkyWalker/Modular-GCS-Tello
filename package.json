@@ -1,0 +1,22 @@
+{
+  "name": "modular-gcs-tello",
+  "version": "1.0.0",
+  "description": "a set of backend utils to help project data to frontend GUI",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Descendents-Of-SkyWalker/Modular-GCS-Tello.git"
+  },
+  "author": "Gaurav Singh, Rajvi Jasani, Pranjal Borakar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Descendents-Of-SkyWalker/Modular-GCS-Tello/issues"
+  },
+  "homepage": "https://github.com/Descendents-Of-SkyWalker/Modular-GCS-Tello#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
