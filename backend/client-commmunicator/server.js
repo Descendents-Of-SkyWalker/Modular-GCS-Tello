@@ -11,8 +11,6 @@ let file_no = 0;
 
 // routes
 app.post('/videoFrame', (req, res) => {
-    fs.writeFileSync(`sample_end${file_no}.jpeg`, req.body.frame, 'base64');
-    // console.log('\n');
     file_no++;
     res.status(200).json({
         status: 'success'
