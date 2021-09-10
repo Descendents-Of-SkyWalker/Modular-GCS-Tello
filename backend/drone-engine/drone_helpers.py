@@ -97,14 +97,14 @@ def send_video_frame(frame_read: Tello.background_frame_read, port: int) -> str:
     #     headers=headers
     # )
 
-drone, frame = initialize(15)
-Stats = DroneStatistics(drone)
-Controller = DroneController(drone, 1, 1)
+# drone, frame = initialize(15)
+# Stats = DroneStatistics(drone)
+# Controller = DroneController(drone, 1, 1)
 
-Controller.takeoff()
-sleep(2)
-print(Stats.getStats())
-sleep(2)
-Controller.land()
+# Controller.takeoff()
+# sleep(2)
+# print(Stats.getStats())
+# sleep(2)
+# Controller.land()
 
-drone.end()
+# drone.end()

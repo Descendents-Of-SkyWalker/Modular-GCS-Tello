@@ -12,14 +12,42 @@ parser.add_argument('-p','--port', help = 'set the port on which the drone will 
 
 args = vars(parser.parse_args()) # dictionary containing command line args
 
-# print(args)
 
-# def main():
-#     drone, frame_end_point = drone_helpers.initialize()
+drone, frame = drone_helpers.initialize(args['speed'])
+Stats = drone_helpers.DroneStatistics(drone)
+Controller = drone_helpers.DroneController(drone, args['movement_sensitivity'], args['turn_sensitivity'])
+port = args['port']
 
-def initializeSocket(port:int) -> socket:
+
+def initializeSocket() -> socket:
     request = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     request.bind(('localhost', port))
     request.listen()
     conn, addr = request.accept()
     return conn
+
+
+
+def drone_controller_interface():
+    connection = initializeSocket()
+    with connection as conn:
+        while True:
+            try:
+                data = int(conn.recv(1).decode('utf-8'))
+                if not data:
+                    Controller.land()
+                    break
+                else:
+                    print(data)
+                    if data == 1:
+                        Controller.takeoff()
+                    elif data == 3:
+                        print(Stats.getStats())
+                    elif data == 5:
+                        Controller.land()
+                    continue
+            except:
+                Controller.land()
+                break
+
+drone_controller_interface()
