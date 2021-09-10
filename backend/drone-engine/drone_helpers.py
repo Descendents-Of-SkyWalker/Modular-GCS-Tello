@@ -1,8 +1,8 @@
 from djitellopy import Tello
-from requests import post
 import cv2
 import base64
 import json
+from time import sleep
 
 def initialize(setSpeed) -> Tello:
     drone = Tello()
@@ -22,6 +22,26 @@ class DroneStatistics:
             'y': self.drone.get_acceleration_y(),
             'z': self.drone.get_acceleration_z()
         }
+
+        stats['speed'] = {
+            'x': self.drone.get_speed_x(),
+            'y': self.drone.get_speed_y(),
+            'z': self.drone.get_speed_z()
+        }
+
+        stats['principle_axes'] = {
+            'pitch': self.drone.get_pitch(),
+            'yaw': self.drone.get_yaw(),
+            'roll': self.drone.get_roll(),
+        }
+
+        stats['height'] = self.drone.get_height()
+        stats['flight_time'] = self.drone.get_flight_time()
+        stats['battery'] = self.drone.get_battery()
+
+        stats['drone_temperature'] = self.drone.get_temperature()
+
+        return json.dumps(stats)
 
         
 
@@ -76,3 +96,15 @@ def send_video_frame(frame_read: Tello.background_frame_read, port: int) -> str:
     # }),
     #     headers=headers
     # )
+
+drone, frame = initialize(15)
+Stats = DroneStatistics(drone)
+Controller = DroneController(drone, 1, 1)
+
+Controller.takeoff()
+sleep(2)
+print(Stats.getStats())
+sleep(2)
+Controller.land()
+
+drone.end()
