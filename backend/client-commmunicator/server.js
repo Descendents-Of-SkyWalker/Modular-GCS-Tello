@@ -10,8 +10,22 @@ app.use(express.urlencoded({limit: '50mb',extended: true}));
 
 // routes
 app.post('/videoFrame', (req, res) => {
-    res.status(200).json({
-        status: 'success'
+    fs.writeFile('sample.jpg', req.body.frame, 'base64', (err, data) => {
+        if (!err){
+            res.status(200).json({
+            status: 'success'
+        });
+        }
+    });
+});
+
+app.post('/stats', (req, res) => {
+    fs.writeFile('stats.json', req.body.stats, 'utf8', (err, data) => {
+        if (!err){
+            res.status(200).json({
+            status: 'success'
+        });
+        }
     });
 });
 

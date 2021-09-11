@@ -3,6 +3,7 @@ import argparse
 import json
 import threading
 import socket
+import requests
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-s','--speed', help = 'set the speed of the drone "range" = [10, 100]', type=int)
@@ -17,15 +18,26 @@ drone, frame = drone_helpers.initialize(args['speed'])
 Stats = drone_helpers.DroneStatistics(drone)
 Controller = drone_helpers.DroneController(drone, args['movement_sensitivity'], args['turn_sensitivity'])
 port = args['port']
+headers = {'content-type': 'application/json'}
 
 
 def initializeSocket() -> socket:
     request = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    request.bind(('localhost', port))
+    request.bind(('localhost', port + 1))
     request.listen()
     conn, addr = request.accept()
     return conn
 
+
+def postData(path:str, data:str) -> requests.Response:
+    res = requests.post(
+        url = f'http://localhost:{port}/{path}',
+        data = json.dumps({
+            'frame' if path == 'videoFrame' else 'stats' : data
+        }),
+        headers = headers
+    )
+    return res
 
 
 def drone_controller_interface():
@@ -35,19 +47,28 @@ def drone_controller_interface():
             try:
                 data = int(conn.recv(1).decode('utf-8'))
                 if not data:
-                    Controller.land()
+                    # Controller.land()
                     break
                 else:
                     print(data)
                     if data == 1:
                         Controller.takeoff()
                     elif data == 3:
-                        print(Stats.getStats())
+                        postData(
+                            'stats',
+                            Stats.getStats()
+                        )
+                    elif data == 4:
+                        postData(
+                            'videoFrame',
+                            drone_helpers.get_video_frame(frame)
+                        )
                     elif data == 5:
                         Controller.land()
                     continue
             except:
-                Controller.land()
+                # Controller.land()
+                Controller.end()
                 break
 
 drone_controller_interface()

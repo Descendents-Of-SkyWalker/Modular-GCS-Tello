@@ -3,7 +3,7 @@ from time import sleep
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-sock.connect(('localhost', 3000))
+sock.connect(('localhost', 3001))
 
 ls = ['1','2', '3', '4', '5']
 

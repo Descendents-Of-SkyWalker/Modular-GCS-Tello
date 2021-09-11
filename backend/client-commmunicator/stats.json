@@ -1,0 +1,21 @@
+{
+    "acceleration": {
+        "x": 9.0,
+        "y": 8.0,
+        "z": -980.0
+    },
+    "speed": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+    },
+    "principle_axes": {
+        "pitch": 0,
+        "yaw": 0,
+        "roll": 0
+    },
+    "height": 70,
+    "flight_time": 3,
+    "battery": 79,
+    "drone_temperature": 91.5
+}

@@ -7,8 +7,8 @@ from time import sleep
 def initialize(setSpeed) -> Tello:
     drone = Tello()
     drone.connect()
-    drone.streamon()
     drone.set_speed(setSpeed)
+    drone.streamon()
     return drone, drone.get_frame_read()
 
 class DroneStatistics:
@@ -80,22 +80,18 @@ class DroneController:
 
     def turn_counter_clockwise(self):
         self.drone.rotate_counter_clockwise(self.turn_sensitivity * 15)
+    
+    def end(self):
+        self.drone.streamoff()
+        self.drone.end()
 
-
-def send_video_frame(frame_read: Tello.background_frame_read, port: int) -> str:
+def get_video_frame(frame_read: Tello.background_frame_read) -> str:
     img = frame_read.frame
     _dummy, frame = cv2.imencode('.jpg', cv2.flip(img, 1))
     # converting the frame to base 64 string
     b64_str = base64.b64encode(frame).decode()
 
     return b64_str
-    # headers = {'content-type': 'application/json'}
-
-    # res = post(url=f'http://localhost:{port}/videoFrame', data=json.dumps({
-    #     'frame': b64_str
-    # }),
-    #     headers=headers
-    # )
 
 # drone, frame = initialize(15)
 # Stats = DroneStatistics(drone)
