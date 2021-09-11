@@ -92,15 +92,3 @@ def get_video_frame(frame_read: Tello.background_frame_read) -> str:
     b64_str = base64.b64encode(frame).decode()
 
     return b64_str
-
-# drone, frame = initialize(15)
-# Stats = DroneStatistics(drone)
-# Controller = DroneController(drone, 1, 1)
-
-# Controller.takeoff()
-# sleep(2)
-# print(Stats.getStats())
-# sleep(2)
-# Controller.land()
-
-# drone.end()

@@ -14,9 +14,9 @@ parser.add_argument('-p','--port', help = 'set the port on which the drone will 
 args = vars(parser.parse_args()) # dictionary containing command line args
 
 
-drone, frame = drone_helpers.initialize(args['speed'])
-Stats = drone_helpers.DroneStatistics(drone)
-Controller = drone_helpers.DroneController(drone, args['movement_sensitivity'], args['turn_sensitivity'])
+# drone, frame = drone_helpers.initialize(args['speed'])
+# Stats = drone_helpers.DroneStatistics(drone)
+# Controller = drone_helpers.DroneController(drone, args['movement_sensitivity'], args['turn_sensitivity'])
 port = args['port']
 headers = {'content-type': 'application/json'}
 
@@ -51,24 +51,24 @@ def drone_controller_interface():
                     break
                 else:
                     print(data)
-                    if data == 1:
-                        Controller.takeoff()
-                    elif data == 3:
-                        postData(
-                            'stats',
-                            Stats.getStats()
-                        )
-                    elif data == 4:
-                        postData(
-                            'videoFrame',
-                            drone_helpers.get_video_frame(frame)
-                        )
-                    elif data == 5:
-                        Controller.land()
+                    # if data == 1:
+                    #     Controller.takeoff()
+                    # elif data == 3:
+                    #     postData(
+                    #         'stats',
+                    #         Stats.getStats()
+                    #     )
+                    # elif data == 4:
+                    #     postData(
+                    #         'videoFrame',
+                    #         drone_helpers.get_video_frame(frame)
+                    #     )
+                    # elif data == 5:
+                    #     Controller.land()
                     continue
             except:
                 # Controller.land()
-                Controller.end()
+                # Controller.end()
                 break
 
 drone_controller_interface()
