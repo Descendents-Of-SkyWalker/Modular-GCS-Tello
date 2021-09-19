@@ -89,6 +89,7 @@ def get_video_frame(frame_read: Tello.background_frame_read) -> str:
     img = frame_read.frame
     _dummy, frame = cv2.imencode('.jpg', cv2.flip(img, 1))
     # converting the frame to base 64 string
-    b64_str = base64.b64encode(frame).decode()
-
+    b64_str = base64.b64encode(frame)
+    b64_str = b64_str.decode()
+    
     return b64_str

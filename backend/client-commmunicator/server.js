@@ -1,25 +1,25 @@
 const express = require('express');
-const fs = require('fs');
+const electron = require('electron');
+const process = require('child_process')
+const {app, BrowserWindow, ipcMain} = electron;
 
-const app = express();
+
+const expressApp = express();
 
 // middleware setup
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb',extended: true}));
+expressApp.use(express.json({limit: '50mb'}));
+expressApp.use(express.urlencoded({limit: '50mb',extended: true}));
 
 
 // routes
-app.post('/videoFrame', (req, res) => {
-    fs.writeFile('sample.jpg', req.body.frame, 'base64', (err, data) => {
-        if (!err){
-            res.status(200).json({
-            status: 'success'
-        });
-        }
+expressApp.post('/videoFrame', (req, res) => {
+    main.webContents.send('frame', req.body.frame);
+    res.status(200).json({
+        status: 'success'
     });
 });
 
-app.post('/stats', (req, res) => {
+expressApp.post('/stats', (req, res) => {
     fs.writeFile('stats.json', req.body.stats, 'utf8', (err, data) => {
         if (!err){
             res.status(200).json({
@@ -30,6 +30,19 @@ app.post('/stats', (req, res) => {
 });
 
 const port = 3000
-app.listen(port, () => {
-    console.log(`running at port ${port}`);
+
+
+
+let main;
+app.on('ready', () => {
+    main = new BrowserWindow({
+        webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false
+        }
+    });
+    expressApp.listen(port, () => {
+        console.log(`running at port ${port}`);
+    });
+    main.loadURL(`file://${__dirname}/../../frontend/index.html`);
 });

@@ -2,8 +2,9 @@
   "name": "modular-gcs-tello",
   "version": "1.0.0",
   "description": "a set of backend utils to help project data to frontend GUI",
-  "main": "app.js",
+  "main": "backend/client-commmunicator/server.js",
   "scripts": {
+    "electron": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/Descendents-Of-SkyWalker/Modular-GCS-Tello#readme",
   "dependencies": {
+    "electron": "^14.0.1",
     "express": "^4.17.1"
   }
 }

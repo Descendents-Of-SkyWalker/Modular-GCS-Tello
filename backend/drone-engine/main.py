@@ -4,6 +4,7 @@ import json
 import threading
 import socket
 import requests
+import cv2
 parser = argparse.ArgumentParser()
 
 parser.add_argument('-s','--speed', help = 'set the speed of the drone "range" = [10, 100]', type=int)
@@ -14,9 +15,9 @@ parser.add_argument('-p','--port', help = 'set the port on which the drone will 
 args = vars(parser.parse_args()) # dictionary containing command line args
 
 
-# drone, frame = drone_helpers.initialize(args['speed'])
-# Stats = drone_helpers.DroneStatistics(drone)
-# Controller = drone_helpers.DroneController(drone, args['movement_sensitivity'], args['turn_sensitivity'])
+drone, frame = drone_helpers.initialize(args['speed'])
+Stats = drone_helpers.DroneStatistics(drone)
+Controller = drone_helpers.DroneController(drone, args['movement_sensitivity'], args['turn_sensitivity'])
 port = args['port']
 headers = {'content-type': 'application/json'}
 
@@ -40,6 +41,14 @@ def postData(path:str, data:str) -> requests.Response:
     return res
 
 
+def dataSender():
+    while True:
+        postData(
+            'videoFrame',
+            drone_helpers.get_video_frame(frame)
+        )
+
+
 def drone_controller_interface():
     connection = initializeSocket()
     with connection as conn:
@@ -51,8 +60,8 @@ def drone_controller_interface():
                     break
                 else:
                     print(data)
-                    # if data == 1:
-                    #     Controller.takeoff()
+                    if data == 1:
+                        Controller.takeoff()
                     # elif data == 3:
                     #     postData(
                     #         'stats',
@@ -63,12 +72,18 @@ def drone_controller_interface():
                     #         'videoFrame',
                     #         drone_helpers.get_video_frame(frame)
                     #     )
-                    # elif data == 5:
-                    #     Controller.land()
+                    elif data == 5:
+                        Controller.land()
                     continue
             except:
                 # Controller.land()
                 # Controller.end()
                 break
 
-drone_controller_interface()
+# drone_controller_interface()
+
+t1 = threading.Thread(target=drone_controller_interface)
+t2 = threading.Thread(target=dataSender)
+
+t1.start()
+t2.start()
