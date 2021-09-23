@@ -39,9 +39,28 @@ sections.forEach(section =>{
     observer.observe(section)
 });
 
-// to prevent scrolling through arrow keys
-window.addEventListener("keydown", function(e) {
+let keyStopper=false;
+
+window.addEventListener('keydown', (e)=>{
     if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
         e.preventDefault();
+        // to prevent scrolling through arrow keys
     }
+    if(keyStopper){
+        setTimeout(function(){
+            console.log("Long Press "+e.code);
+        },1000);
+    }
+    else{
+        keyStopper=true;
+        console.log(e.code);
+    }
+    
 }, false);
+
+window.addEventListener('keyup',(e)=>{
+    keyStopper=false;
+})
+
+/* 0.25 keydown */
+/* keypress */
