@@ -62,16 +62,10 @@ def drone_controller_interface():
                     print(data)
                     if data == 1:
                         Controller.takeoff()
-                    # elif data == 3:
-                    #     postData(
-                    #         'stats',
-                    #         Stats.getStats()
-                    #     )
-                    # elif data == 4:
-                    #     postData(
-                    #         'videoFrame',
-                    #         drone_helpers.get_video_frame(frame)
-                    #     )
+                    elif data == 2:
+                        Controller.forward()
+                    elif data == 3:
+                        Controller.left()
                     elif data == 5:
                         Controller.land()
                     continue
