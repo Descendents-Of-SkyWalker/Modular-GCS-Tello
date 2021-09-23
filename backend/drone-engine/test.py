@@ -3,11 +3,10 @@ from time import sleep
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-sock.connect(('localhost', 3001))
+sock.connect(('localhost', 15002))
 
-ls = ['1','2', '3', '4', '5']
-
-for i in ls:
-    if i != '2' or i != '3':
-        sleep(2)
+while 1:
+    i = input()
     sock.sendall(i.encode())
+    if i == 5:
+        break
