@@ -23,11 +23,18 @@ headers = {'content-type': 'application/json'}
 
 
 def initializeSocket() -> socket:
-    request = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    request.bind(('localhost', port + 1))
-    request.listen()
-    conn, addr = request.accept()
-    return conn
+    try:
+        request = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        request.bind(('localhost', port + 1))
+        request.listen()
+        conn, addr = request.accept()
+        return conn
+    except:
+        request = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        request.bind(('localhost', port + 2))
+        request.listen()
+        conn, addr = request.accept()
+        return conn
 
 
 def postData(path:str, data:str) -> requests.Response:
@@ -66,7 +73,15 @@ def drone_controller_interface():
                         Controller.forward()
                     elif data == 3:
                         Controller.left()
+                    elif data == 4:
+                        Controller.right()
                     elif data == 5:
+                        Controller.back()
+                    elif data == 6:
+                        Controller.up()
+                    elif data == 7:
+                        Controller.down()
+                    elif data == 8:
                         Controller.land()
                     continue
             except:
@@ -76,8 +91,12 @@ def drone_controller_interface():
 
 # drone_controller_interface()
 
+
 t1 = threading.Thread(target=drone_controller_interface)
 t2 = threading.Thread(target=dataSender)
+t3 = threading.Thread(target=drone_controller_interface)
+
 
 t1.start()
 t2.start()
+t3.start()

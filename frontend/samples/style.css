@@ -1,0 +1,55 @@
+*{
+    padding: 0;
+    margin: 0;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.container{
+    display: flex;
+    background-color: #000;
+    width: 100vw;
+    height: 100vh;
+}
+
+.container > .control-panel{
+    width: 10%;
+    height: 100%;
+    border: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-panel > .navigator{
+    width: 90%;
+    height: 40%;
+    border: 1px solid white;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.navigator > .bubble{
+    background-color: blue;
+    width: 0.5rem;
+    height: 5rem;
+    position: absolute;
+    right: 0;
+    transition: all 0.5s;
+}
+
+.container > .view-panel{
+    width: 90%;
+    height: 100%;
+    border: 1px solid red;
+    overflow-y: scroll;
+}
+
+.view-panel > .view {
+    height: 90vh;
+    margin-bottom: 5rem;
+    width: 90vw;
+    background-color: white;
+}
