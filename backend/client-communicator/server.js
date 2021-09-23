@@ -1,6 +1,7 @@
 const express = require('express');
 const electron = require('electron');
-const process = require('child_process')
+const child_process = require('child_process');
+const net = require('net');
 const {app, BrowserWindow, ipcMain} = electron;
 
 
@@ -19,6 +20,7 @@ expressApp.post('/videoFrame', (req, res) => {
     });
 });
 
+
 expressApp.post('/stats', (req, res) => {
     fs.writeFile('stats.json', req.body.stats, 'utf8', (err, data) => {
         if (!err){
@@ -30,6 +32,38 @@ expressApp.post('/stats', (req, res) => {
 });
 
 const port = 15000
+let droneConnection;
+let connectionFlag = false;
+
+
+const startServerClient = () => {
+    console.log(`running at port ${port}`);
+    // let python = child_process.spawn('python3', ['backend/drone-engine/main.py']);
+    
+    // python.stdout.on('data', (data) => {
+    //     console.log(`python data: ${data}`);
+    // });
+
+    // python.stderr.on('data', (data) => {
+    //     console.error('err: ', data.toString());
+    //   });
+      
+    //   python.on('error', (error) => {
+    //     console.error('error: ', error.message);
+    //   });
+      
+    //   python.on('close', (code) => {
+    //     console.log('child process exited with code ', code);
+    //   });
+
+    setTimeout(() => {
+        droneConnection = net.connect({port: 15001}, (err) => {
+            connectionFlag = true;
+            console.log('connected');
+            console.log(err);
+        });
+    }, 10000);
+}
 
 
 
@@ -41,8 +75,16 @@ app.on('ready', () => {
             contextIsolation: false
         }
     });
-    expressApp.listen(port, () => {
-        console.log(`running at port ${port}`);
+    expressApp.listen(port, startServerClient);
+
+    ipcMain.on("keyboard:event", (event, data) => {
+        if(connectionFlag){
+            droneConnection.write(data+'', (err) => {
+                if(err)
+                    console.log(err.message);
+            });
+        }
     });
+
     main.loadURL(`file://${__dirname}/../../frontend/index.html`);
 });

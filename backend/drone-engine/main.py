@@ -1,18 +1,25 @@
 import drone_helpers
-import argparse
+# import argparse
 import json
 import threading
 import socket
 import requests
-import cv2
-parser = argparse.ArgumentParser()
+import sys
+# parser = argparse.ArgumentParser()
 
-parser.add_argument('-s','--speed', help = 'set the speed of the drone "range" = [10, 100]', type=int)
-parser.add_argument('-ms','--movement_sensitivity', help = 'set the sensitivity of movement of the drone "range" = [1, 24]', type=int)
-parser.add_argument('-rs','--turn_sensitivity', help = 'set the sensitivity of rotation of the drone "range" = [1, 16]', type=int)
-parser.add_argument('-p','--port', help = 'set the port on which the drone will report its data onto', type = int)
+# parser.add_argument('-s','--speed', help = 'set the speed of the drone "range" = [10, 100]', type=int)
+# parser.add_argument('-ms','--movement_sensitivity', help = 'set the sensitivity of movement of the drone "range" = [1, 24]', type=int)
+# parser.add_argument('-rs','--turn_sensitivity', help = 'set the sensitivity of rotation of the drone "range" = [1, 16]', type=int)
+# parser.add_argument('-p','--port', help = 'set the port on which the drone will report its data onto', type = int)
 
-args = vars(parser.parse_args()) # dictionary containing command line args
+# args = vars(parser.parse_args()) # dictionary containing command line args
+args = {}
+
+args['speed'] = 10
+args['movement_sensitivity'] = 1
+args['movement_sensitivity'] = 1
+args['turn_sensitivity'] = 1
+args['port'] = 15000
 
 
 drone, frame = drone_helpers.initialize(args['speed'])
@@ -23,18 +30,12 @@ headers = {'content-type': 'application/json'}
 
 
 def initializeSocket() -> socket:
-    try:
-        request = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        request.bind(('localhost', port + 1))
-        request.listen()
-        conn, addr = request.accept()
-        return conn
-    except:
-        request = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        request.bind(('localhost', port + 2))
-        request.listen()
-        conn, addr = request.accept()
-        return conn
+    request = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    request.bind(('localhost', port + 1))
+    request.listen()
+    print('connection established');
+    conn, addr = request.accept()
+    return conn
 
 
 def postData(path:str, data:str) -> requests.Response:
@@ -55,32 +56,37 @@ def dataSender():
             drone_helpers.get_video_frame(frame)
         )
 
+connection = initializeSocket()
+
 
 def drone_controller_interface():
-    connection = initializeSocket()
     with connection as conn:
         while True:
             try:
-                data = int(conn.recv(1).decode('utf-8'))
+                data = conn.recv(1).decode('utf-8')
                 if not data:
                     # Controller.land()
                     break
                 else:
-                    if data == 1:
+                    if data == '1':
                         Controller.takeoff()
-                    elif data == 2:
+                    elif data == '2':
                         Controller.forward()
-                    elif data == 3:
+                    elif data == '3':
                         Controller.left()
-                    elif data == 4:
+                    elif data == '4':
                         Controller.right()
-                    elif data == 5:
+                    elif data == '5':
                         Controller.back()
-                    elif data == 6:
+                    elif data == '6':
                         Controller.up()
-                    elif data == 7:
+                    elif data == '7':
                         Controller.down()
-                    elif data == 8:
+                    elif data == '8':
+                        Controller.turn_clockwise()
+                    elif data == '9':
+                        Controller.turn_counter_clockwise()
+                    elif data == '#':
                         Controller.land()
                     continue
             except:
@@ -93,9 +99,7 @@ def drone_controller_interface():
 
 t1 = threading.Thread(target=drone_controller_interface)
 t2 = threading.Thread(target=dataSender)
-t3 = threading.Thread(target=drone_controller_interface)
 
 
 t1.start()
 t2.start()
-t3.start()
