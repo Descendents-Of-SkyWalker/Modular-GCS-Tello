@@ -2,7 +2,7 @@
   "name": "modular-gcs-tello",
   "version": "1.0.0",
   "description": "a set of backend utils to help project data to frontend GUI",
-  "main": "backend/client-commmunicator/server.js",
+  "main": "backend/client-communicator/server.js",
   "scripts": {
     "electron": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"

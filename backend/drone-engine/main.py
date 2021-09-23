@@ -66,7 +66,6 @@ def drone_controller_interface():
                     # Controller.land()
                     break
                 else:
-                    print(data)
                     if data == 1:
                         Controller.takeoff()
                     elif data == 2:
