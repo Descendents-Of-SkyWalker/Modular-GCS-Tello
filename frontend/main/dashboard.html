@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,23 +10,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
     <title>Welcome</title>
 </head>
+
 <body>
-    <header>
-        <nav>
-            <a href="#video"><img src="icon_video_focused.svg" alt="video" id="icon-video" class="icons"></a>
-            <a href="#stats"><img src="icon_stats.svg" alt="stats" id="icon-stats" class="icons"></a>
+    <div class="container">
+        <header>
+            <nav>
+                <a href="#video"><img src="icon_video_focused.svg" alt="video" id="icon-video" class="icons"></a>
+                <a href="#stats"><img src="icon_stats.svg" alt="stats" id="icon-stats" class="icons"></a>
+            </nav>
             <div class="bar"></div>
-        </nav>
-    </header>
-    
-    <main>
-        <section id="video" class="video">
-            <div class="feed"></div>
-        </section>
-        <section id="stats" class="stats">
-            <div class="feed"></div>
-        </section>
-    </main>
+        </header>
+
+        <main>
+            <section id="video" class="video">
+                <div class="display"></div>
+            </section>
+            <section id="stats" class="stats">
+                <div class="display">
+                    <h1>Project Statistics</h1>
+                    <div class="graphs-display">
+                        <div class="graph-control">
+                            <h2>Graphs</h2>
+                            <button id="one"></button>
+                            <button id="two"></button>
+                            <button id="three"></button>
+                            <button id="four"></button>
+                        </div>
+                        <div class="graph-container">
+                            <h2>Altitude vs Time</h2>
+                            <div class="graph"></div>
+                        </div>
+                    </div>
+                    <div class="drone-stats">
+                        <div class="battery">
+                            <h2>Battery</h2>
+                            <div></div>
+                        </div>
+                        <div class="speed">
+                            <h2>Speed</h2>
+                            <div></div>
+                        </div>
+                        <div class="acceleration">
+                            <h2>Acceleration</h2>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
     <script src="script.js"></script>
 </body>
+
 </html>
