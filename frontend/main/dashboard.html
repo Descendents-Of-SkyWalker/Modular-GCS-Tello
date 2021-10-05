@@ -15,6 +15,7 @@
     <div class="container">
         <header>
             <nav>
+                <!-- <a href="#control"><img src="icon_control.svg" alt="control" class="icons"></a> -->
                 <a href="#video"><img src="icon_video_focused.svg" alt="video" id="icon-video" class="icons"></a>
                 <a href="#stats"><img src="icon_stats.svg" alt="stats" id="icon-stats" class="icons"></a>
             </nav>
@@ -31,34 +32,72 @@
                     <div class="graphs-display">
                         <div class="graph-control">
                             <h2>Graphs</h2>
-                            <button id="one"></button>
-                            <button id="two"></button>
-                            <button id="three"></button>
-                            <button id="four"></button>
+                            <button id="one">Altitude vs Time</button>
+                            <button id="two">Altitude vs Time</button>
+                            <button id="three">Altitude vs Time</button>
+                            <button id="four">Altitude vs Time</button>
                         </div>
                         <div class="graph-container">
                             <h2>Altitude vs Time</h2>
-                            <div class="graph"></div>
+                            <div class="graph">
+                            </div>
                         </div>
                     </div>
                     <div class="drone-stats">
                         <div class="battery">
                             <h2>Battery</h2>
-                            <div></div>
+                            <div class="content">
+                                <div class="indicator">
+                                    <div class="outer-circle">
+                                        <div class="inner-circle">
+                                            <p class="before">50%</p>
+                                            <div class="after"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="level">Remaining: 50%</div>
+                            </div>
                         </div>
                         <div class="speed">
                             <h2>Speed</h2>
-                            <div></div>
+                            <div class="content">
+                                <div id="x1">
+                                    <label for="">x - axis:</label>
+                                    <p><span id="xsval">10</span> m/s</p>
+                                </div>
+                                <div id="y1">
+                                    <label for="">y - axis:</label>
+                                    <p><span id="ysval">20</span> m/s</p>
+                                </div>
+                                <div id="z1">
+                                    <label for="">z - axis:</label>
+                                    <p><span id="zsval">30</span> m/s</p>
+                                </div>
+                            </div>
                         </div>
                         <div class="acceleration">
                             <h2>Acceleration</h2>
-                            <div></div>
+                            <div class="content">
+                                <div id="x2">
+                                    <label for="">x - axis:</label>
+                                    <p><span id="xaval">10</span> m/s<sup>2</sup></p>
+                                </div>
+                                <div id="y2">
+                                    <label for="">y - axis:</label>
+                                    <p><span id="yaval">20</span> m/s<sup>2</sup></p>
+                                </div>
+                                <div id="z2">
+                                    <label for="">z - axis:</label>
+                                    <p><span id="zaval">30</span> m/s<sup>2</sup></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </section>
         </main>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
     <script src="script.js"></script>
 </body>
 
