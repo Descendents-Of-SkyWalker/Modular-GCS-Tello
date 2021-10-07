@@ -17,10 +17,63 @@ body {
   color: #ffffff;
   letter-spacing: 0.68px;
 }
+.prompt {
+  position: absolute;
+  width: 50%;
+  height: 40%;
+  top: 30%;
+  left: 25%;
+  background: #183055;
+  font-weight: 500;
+  border-radius: 50px;
+  padding: 1rem;
+  z-index: 2;
+}
+.dis {
+  display: none;
+}
+.pos-rest {
+  width: 100%;
+  height: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.pos-rest h2 {
+  text-align: center;
+}
+.pos-close {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+#close {
+  width: 1rem;
+  height: 1rem;
+  margin: 1rem 1rem 0 0;
+}
+#portNum {
+  background: #171821;
+  width: 50%;
+  padding: 1rem 2rem;
+  color: #FFFFFF;
+  outline: none;
+  border-radius: 50px;
+  border-style: none;
+  font-size: 1rem;
+}
 .container{
   display: flex;
   width: 100vw;
   height: 100vh;
+}
+.hide {
+  background: #00000099;
+  opacity: 0.5;
+  pointer-events: none;
 }
 header {
   width: 10%;
@@ -33,7 +86,7 @@ nav {
   background-color: #171821;
   position: relative;
   width: 70%;
-  height: 40%;
+  height: 60%;
   border-top-right-radius: 50px;
   border-bottom-right-radius: 50px;
   display: flex;
@@ -58,7 +111,8 @@ main {
   overflow-y: scroll;
 }
 .video,
-.stats {
+.stats,
+.control {
   height: 100vh;
   width: 90vw;
   /* border: 1px solid white; */
@@ -66,9 +120,6 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-}
-.video .display{
-  background-color: #171821;
 }
 .display {
   height: 90%;
@@ -78,8 +129,14 @@ main {
   display: flex;
   flex-direction: column;
 }
+.video .display{
+  background-color: #171821;
+}
 .stats .display {
   height: 95%;
+}
+.control .display {
+  justify-content: space-evenly;
 }
 h1 {
   flex: 1;
@@ -90,6 +147,55 @@ h2 {
   font-weight: 500;
   font-size: 1.5rem;
   margin: 10px 0px;
+}
+.port {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.port-num {
+  background: #171821;
+  border-radius: 100px;
+  padding: 1rem 2rem;
+  font-weight: 500;
+}
+.port-btn {
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+#reset, #set {
+  font-weight: 400;
+  letter-spacing: 0.68px;
+  background: #0277FA33;
+  color: #FFFFFF;
+  border-radius: 100px;
+  padding: 1rem 2rem;
+  border-style: none;
+}
+.slider-control {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+.slider-capsule {
+  width: 70%;
+  padding: 1.5rem 2.5rem;
+  border-radius: 100px;
+  background: #171821;
+}
+.slider {
+  width: 100%;
+  outline: none;
+}
+.value-display {
+  text-align: center;
+  width: 15%;
+  padding: 1.5rem 2rem;
+  border-radius: 100px;
+  background: #171821;
+  font-weight: 400;
 }
 .graphs-display {
   flex: 8;
@@ -102,7 +208,7 @@ h2 {
   flex-direction: column;
   /* border: 1px solid white; */
 }
-.graph-control button {
+.graph-btn {
   flex: 1;
   margin: 5px 0px;
   border-style: none;
@@ -113,7 +219,7 @@ h2 {
   font-size: 1rem;
   letter-spacing: 0.68px;
 }
-.graph-control button:hover, .graph-control button:focus {
+.graph-btn:hover, .graph-btn:focus {
   background-color:#0277FA33;
 }
 .graph-container{

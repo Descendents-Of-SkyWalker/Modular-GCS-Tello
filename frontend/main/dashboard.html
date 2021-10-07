@@ -12,10 +12,19 @@
 </head>
 
 <body>
+    <div class="prompt dis">
+        <div class="pos-close">
+            <img src="close.svg" alt="close" id="close">
+        </div>
+        <div class="pos-rest">
+            <h2>Enter the Port Number</h2>
+            <input type="number" id="portNum">
+        </div>
+    </div>
     <div class="container">
         <header>
             <nav>
-                <!-- <a href="#control"><img src="icon_control.svg" alt="control" class="icons"></a> -->
+                <a href="#control"><img src="icon_control.svg" alt="control" id="icon-control" class="icons"></a>
                 <a href="#video"><img src="icon_video_focused.svg" alt="video" id="icon-video" class="icons"></a>
                 <a href="#stats"><img src="icon_stats.svg" alt="stats" id="icon-stats" class="icons"></a>
             </nav>
@@ -23,6 +32,39 @@
         </header>
 
         <main>
+            <section id="control" class="control">
+                <div class="display">
+                    <div class="port">
+                        <div class="port-num">Port Number: <span id="portVal">_____</span></div>
+                        <div class="port-btn">
+                            <button id="set">Set Port</button>
+                            <button id="reset">Reset Values</button>
+                        </div>
+                    </div>
+                    <br>
+                    <h2>Speed</h2>
+                    <div class="slider-control">
+                        <div class="slider-capsule">
+                            <input type="range" class="slider" name="speed-range" id="speed-range">
+                        </div>
+                        <div class="value-display" id="speed-value"> <span id="set-speed">50</span> m/s</div>
+                    </div>
+                    <h2>Sensitivity</h2>
+                    <div class="slider-control">
+                        <div class="slider-capsule">
+                            <input type="range" class="slider" name="sensitivity-range" id="sensitivity-range">
+                        </div>
+                        <div class="value-display" id="sensitivity-value">50</div>
+                    </div>
+                    <h2>Turn Sensitivity</h2>
+                    <div class="slider-control">
+                        <div class="slider-capsule">
+                            <input type="range" class="slider" name="turn-range" id="turn-range">
+                        </div>
+                        <div class="value-display" id="turn-value">50</div>
+                    </div>
+                </div>
+            </section>
             <section id="video" class="video">
                 <div class="display"></div>
             </section>
@@ -32,10 +74,10 @@
                     <div class="graphs-display">
                         <div class="graph-control">
                             <h2>Graphs</h2>
-                            <button id="one">Altitude vs Time</button>
-                            <button id="two">Altitude vs Time</button>
-                            <button id="three">Altitude vs Time</button>
-                            <button id="four">Altitude vs Time</button>
+                            <button class="graph-btn" id="one">Altitude vs Time</button>
+                            <button class="graph-btn" id="two">Altitude vs Time</button>
+                            <button class="graph-btn" id="three">Altitude vs Time</button>
+                            <button class="graph-btn" id="four">Altitude vs Time</button>
                         </div>
                         <div class="graph-container">
                             <h2>Altitude vs Time</h2>

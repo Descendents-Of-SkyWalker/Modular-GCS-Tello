@@ -1,46 +1,56 @@
 const bar = document.querySelector('.bar');
 const links = document.querySelectorAll('a[href^="#"]');
 const sections = document.querySelectorAll('section');
-const buttonList = document.querySelectorAll('button');
+const buttonList = document.querySelectorAll('.graph-btn');
 const navCoords = document.querySelector('nav').getBoundingClientRect();
-const startCoords = document.querySelector('#icon-video').getBoundingClientRect();
-
+const startCoords = document.querySelector('#icon-control').getBoundingClientRect();
 setBounds(startCoords);
-function setBounds(coords) {
-    bar.style.top = `${coords.y}px`;
-    bar.style.height = `${coords.height}px`;
-    bar.style.left = `${navCoords.width - 4}px`;
-}
 
-let currentLevel = 50;
-const innerCircle = document.querySelector('.inner-circle');
-innerCircle.addEventListener('click', () => {
-    const liquid = document.querySelector('.after');
-    liquid.style.animation = "none";
-    setTimeout(() => { liquid.style.animation = ""; }, 1)
-    const a = Math.floor(Math.random() * 100);
-    document.documentElement.style.setProperty('--initial-battery', `${currentLevel}%`);
-    document.documentElement.style.setProperty('--battery-level', `${100 - a}%`);
-    currentLevel = 100 - a;
+let portVal = ""
 
-    document.querySelector('.before').textContent = `${a}%`;
-    document.querySelector('#level').textContent = `Remaining: ${a}%`;
+const speedSlider = document.querySelector('#speed-range');
+speedSlider.addEventListener('input', () => {
+    document.querySelector('#set-speed').innerHTML = speedSlider.value;
+});
+const sensitivitySlider = document.querySelector('#sensitivity-range');
+sensitivitySlider.addEventListener('input', () => {
+    document.querySelector('#sensitivity-value').innerHTML = sensitivitySlider.value;
+});
+const turnSlider = document.querySelector('#turn-range');
+turnSlider.addEventListener('input', () => {
+    document.querySelector('#turn-value').innerHTML = turnSlider.value;
 });
 
-// function updateBattery() {
-//     const liquid = document.querySelector('.after');
-//     liquid.style.animation = "none";
-//     setTimeout(() => { liquid.style.animation = ""; }, 1)
-//     const a = Math.floor(Math.random() * 100);
-//     document.documentElement.style.setProperty('--initial-battery', `${currentLevel}%`);
-//     document.documentElement.style.setProperty('--battery-level', `${100 - a}%`);
-//     currentLevel = 100 - a;
+const reset = document.querySelector('#reset');
+reset.addEventListener('click', () => {
+    speedSlider.value = 50;
+    sensitivitySlider.value = 50;
+    turnSlider.value = 50;
+    document.querySelector('#set-speed').innerHTML = 50;
+    document.querySelector('#sensitivity-value').innerHTML = 50;
+    document.querySelector('#turn-value').innerHTML = 50;
+    document.querySelector('#portVal').innerText = "_____";
+});
 
-//     document.querySelector('.before').textContent = `${a}%`;
-//     document.querySelector('#level').textContent = `Remaining: ${a}%`;
-// }
-// setInterval(updateBattery, 7000);
+const set = document.querySelector('#set');
+set.addEventListener('click', () => {
+    document.querySelector('.prompt').classList.remove('dis');
+    document.querySelector('.container').classList.add('hide');
+});
 
+const closeBtn = document.querySelector('#close');
+closeBtn.addEventListener('click', () => {
+    document.querySelector('.prompt').classList.add('dis');
+    document.querySelector('.container').classList.remove('hide');
+    portVal = document.querySelector('#portNum').value;
+    if (portVal === "") {
+        document.querySelector('#portVal').innerText = "_____";
+    }
+    else {
+        document.querySelector('#portVal').innerText = portVal;
+    }
+    document.querySelector('#portNum').value = "";
+});
 
 let i = 0;
 var chartInterval;
@@ -117,12 +127,34 @@ function addChart() {
     return chart;
 }
 
+let currentLevel = 50;
+const innerCircle = document.querySelector('.inner-circle');
+innerCircle.addEventListener('click', () => {
+    const liquid = document.querySelector('.after');
+    liquid.style.animation = "none";
+    setTimeout(() => { liquid.style.animation = ""; }, 1)
+    const a = Math.floor(Math.random() * 100);
+    document.documentElement.style.setProperty('--initial-battery', `${currentLevel}%`);
+    document.documentElement.style.setProperty('--battery-level', `${100 - a}%`);
+    currentLevel = 100 - a;
+
+    document.querySelector('.before').textContent = `${a}%`;
+    document.querySelector('#level').textContent = `Remaining: ${a}%`;
+});
+
+function setBounds(coords) {
+    bar.style.top = `${coords.y}px`;
+    bar.style.height = `${coords.height}px`;
+    bar.style.left = `${navCoords.width - 4}px`;
+}
+
 links.forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         document.querySelector(`${link.hash}`).scrollIntoView({
             behavior: "smooth"
         });
+        document.querySelector('#icon-control').src = `icon_control.svg`;
         document.querySelector('#icon-video').src = `icon_video.svg`;
         document.querySelector('#icon-stats').src = `icon_stats.svg`;
         const activeAnchor = document.querySelector(`#icon-${link.hash.substring(1,)}`);
@@ -144,6 +176,7 @@ function navCheck(entries) {
 
         if (entry.isIntersecting) {
             setBounds(coords);
+            document.querySelector('#icon-control').src = `icon_control.svg`;
             document.querySelector('#icon-video').src = `icon_video.svg`;
             document.querySelector('#icon-stats').src = `icon_stats.svg`;
             activeAnchor.src = `icon_${className}_focused.svg`;
