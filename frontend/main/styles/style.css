@@ -111,8 +111,7 @@ main {
   overflow-y: scroll;
 }
 .video,
-.stats,
-.control {
+.stats {
   height: 100vh;
   width: 90vw;
   /* border: 1px solid white; */
@@ -120,6 +119,18 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+}
+.setup {
+  align-items: center;
+  justify-content: center;
+}
+.control {
+  height: 100vh;
+  width: 90vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .display {
   height: 90%;
@@ -160,7 +171,7 @@ h2 {
   font-weight: 500;
 }
 .port-btn {
-  width: 30%;
+  width: 40%;
   display: flex;
   justify-content: space-between;
 }

@@ -3,54 +3,8 @@ const links = document.querySelectorAll('a[href^="#"]');
 const sections = document.querySelectorAll('section');
 const buttonList = document.querySelectorAll('.graph-btn');
 const navCoords = document.querySelector('nav').getBoundingClientRect();
-const startCoords = document.querySelector('#icon-control').getBoundingClientRect();
+const startCoords = document.querySelector('#icon-video').getBoundingClientRect();
 setBounds(startCoords);
-
-let portVal = ""
-
-const speedSlider = document.querySelector('#speed-range');
-speedSlider.addEventListener('input', () => {
-    document.querySelector('#set-speed').innerHTML = speedSlider.value;
-});
-const sensitivitySlider = document.querySelector('#sensitivity-range');
-sensitivitySlider.addEventListener('input', () => {
-    document.querySelector('#sensitivity-value').innerHTML = sensitivitySlider.value;
-});
-const turnSlider = document.querySelector('#turn-range');
-turnSlider.addEventListener('input', () => {
-    document.querySelector('#turn-value').innerHTML = turnSlider.value;
-});
-
-const reset = document.querySelector('#reset');
-reset.addEventListener('click', () => {
-    speedSlider.value = 50;
-    sensitivitySlider.value = 50;
-    turnSlider.value = 50;
-    document.querySelector('#set-speed').innerHTML = 50;
-    document.querySelector('#sensitivity-value').innerHTML = 50;
-    document.querySelector('#turn-value').innerHTML = 50;
-    document.querySelector('#portVal').innerText = "_____";
-});
-
-const set = document.querySelector('#set');
-set.addEventListener('click', () => {
-    document.querySelector('.prompt').classList.remove('dis');
-    document.querySelector('.container').classList.add('hide');
-});
-
-const closeBtn = document.querySelector('#close');
-closeBtn.addEventListener('click', () => {
-    document.querySelector('.prompt').classList.add('dis');
-    document.querySelector('.container').classList.remove('hide');
-    portVal = document.querySelector('#portNum').value;
-    if (portVal === "") {
-        document.querySelector('#portVal').innerText = "_____";
-    }
-    else {
-        document.querySelector('#portVal').innerText = portVal;
-    }
-    document.querySelector('#portNum').value = "";
-});
 
 let i = 0;
 var chartInterval;
@@ -154,11 +108,11 @@ links.forEach(link => {
         document.querySelector(`${link.hash}`).scrollIntoView({
             behavior: "smooth"
         });
-        document.querySelector('#icon-control').src = `icon_control.svg`;
-        document.querySelector('#icon-video').src = `icon_video.svg`;
-        document.querySelector('#icon-stats').src = `icon_stats.svg`;
+        // document.querySelector('#icon-control').src = `../assets/icon_control.svg`;
+        document.querySelector('#icon-video').src = `../assets/icon_video.svg`;
+        document.querySelector('#icon-stats').src = `../assets/icon_stats.svg`;
         const activeAnchor = document.querySelector(`#icon-${link.hash.substring(1,)}`);
-        activeAnchor.src = `icon_${link.hash.substring(1,)}_focused.svg`;
+        activeAnchor.src = `../assets/icon_${link.hash.substring(1,)}_focused.svg`;
         const coords = activeAnchor.getBoundingClientRect();
         setBounds(coords);
     });
@@ -176,10 +130,10 @@ function navCheck(entries) {
 
         if (entry.isIntersecting) {
             setBounds(coords);
-            document.querySelector('#icon-control').src = `icon_control.svg`;
-            document.querySelector('#icon-video').src = `icon_video.svg`;
-            document.querySelector('#icon-stats').src = `icon_stats.svg`;
-            activeAnchor.src = `icon_${className}_focused.svg`;
+            // document.querySelector('#icon-control').src = `../assets/icon_control.svg`;
+            document.querySelector('#icon-video').src = `../assets/icon_video.svg`;
+            document.querySelector('#icon-stats').src = `../assets/icon_stats.svg`;
+            activeAnchor.src = `../assets/icon_${className}_focused.svg`;
         }
     });
 }

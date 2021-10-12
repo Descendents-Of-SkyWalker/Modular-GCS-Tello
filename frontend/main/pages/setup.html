@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/reset.css">
+    <link rel="stylesheet" href="../styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>Setup</title>
+</head>
+
+<body>
+    <div class="prompt dis">
+        <div class="pos-close">
+            <img src="../assets/close.svg" alt="close" id="close">
+        </div>
+        <div class="pos-rest">
+            <h2>Enter the Port Number</h2>
+            <input type="number" id="portNum">
+        </div>
+    </div>
+    <div class="container setup">
+        <section id="control" class="control">
+            <div class="display">
+                <div class="port">
+                    <div class="port-num">Port Number: <span id="portVal">_____</span></div>
+                    <div class="port-btn">
+                        <button id="set" class="setter-btn">Set Port</button>
+                        <button id="default" class="setter-btn">Set Default</button>
+                        <button id="start" class="setter-btn">Start Session</button>
+                    </div>
+                </div>
+                <br>
+                <h2>Speed</h2>
+                <div class="slider-control">
+                    <div class="slider-capsule">
+                        <input type="range" class="slider" name="speed-range" id="speed-range" min="10" max="100"
+                            value="20">
+                    </div>
+                    <div class="value-display" id="speed-value"> <span id="set-speed">20</span> cm/s</div>
+                </div>
+                <h2>Sensitivity</h2>
+                <div class="slider-control">
+                    <div class="slider-capsule">
+                        <input type="range" class="slider" name="sensitivity-range" id="sensitivity-range" min="1"
+                            max="24" value="2">
+                    </div>
+                    <div class="value-display" id="sensitivity-value">2</div>
+                </div>
+                <h2>Turn Sensitivity</h2>
+                <div class="slider-control">
+                    <div class="slider-capsule">
+                        <input type="range" class="slider" name="turn-range" id="turn-range" min="1" max="16" value="2">
+                    </div>
+                    <div class="value-display" id="turn-value">2</div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="../scripts/setup_script.js"></script>
+</body>
+
+</html>
