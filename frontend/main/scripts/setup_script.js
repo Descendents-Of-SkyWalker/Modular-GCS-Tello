@@ -1,3 +1,6 @@
+const electron = require('electron');
+const {ipcRenderer} = electron;
+
 const speedVal = document.querySelector('#set-speed');
 const sensitivityVal = document.querySelector('#sensitivity-value');
 const turnVal = document.querySelector('#turn-value');
@@ -43,6 +46,7 @@ start.addEventListener('click', () => {
     setupObject.turnSensitivity = parseInt(turnVal.innerHTML);
     setupObject.port = parseInt(port.innerHTML);
 
+    ipcRenderer.send('config:data', setupObject);
     console.log(setupObject);
 })
 

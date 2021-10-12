@@ -19,7 +19,6 @@
   "homepage": "https://github.com/Descendents-Of-SkyWalker/Modular-GCS-Tello#readme",
   "dependencies": {
     "chart.js": "^3.5.1",
-    "chartjs": "^0.3.24",
     "electron": "^14.0.1",
     "express": "^4.17.1"
   }

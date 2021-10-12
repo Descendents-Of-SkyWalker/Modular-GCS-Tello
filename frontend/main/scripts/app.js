@@ -1,10 +1,8 @@
-const electron = require("electron");
-const { ipcRenderer } = electron;
-
-let img = document.querySelector("img");
+let img = document.querySelector("#video > img");
 ipcRenderer.on("frame", (event, data) => {
   img.src = `data:image/jpg;base64,${data}`;
 });
+
 
 
 class KeyEventLogger{

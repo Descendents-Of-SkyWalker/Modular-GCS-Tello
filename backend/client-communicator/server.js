@@ -22,16 +22,11 @@ expressApp.post("/videoFrame", (req, res) => {
 
 expressApp.route("/stats")
     .post((req, res) => {
-            statsData = req.body.stats
-            res.status(200).json({
-                status: "success",
-            });
-    }).get((req, res) => {
-        res.status(200).json({
-                status: "success",
-                statsData
-            });
-    })
+      main.webContents.send("stats", req.body.stats);
+      res.status(200).json({
+          status: "success",
+      });
+})
 
 let droneConnection;
 let connectionFlag = false;
@@ -51,7 +46,7 @@ const startServerClient = (setupObject) => {
       if (chunk.toString('utf8') == 'init')
         droneConnection = net.connect({ port: setupObject.port + 1}, (err) => {
           connectionFlag = true;
-          main.loadURL(`file://${__dirname}/../../frontend/main/dashboard.html`);
+          main.loadURL(`file://${__dirname}/../../frontend/main/pages/dashboard.html`);
         });
     })
 };
@@ -64,9 +59,10 @@ app.on("ready", () => {
     },
   });
 
-  main.loadURL(`file://${__dirname}/../../frontend/main/setup.html`);
+  main.loadURL(`file://${__dirname}/../../frontend/main/pages/setup.html`);
   
   ipcMain.on("config:data", (event, data) => {
+    console.log(data);
     expressApp.listen(data.port, () => startServerClient(data));
   })
 
@@ -77,5 +73,5 @@ app.on("ready", () => {
       });
     }
   });
-  
+
 });

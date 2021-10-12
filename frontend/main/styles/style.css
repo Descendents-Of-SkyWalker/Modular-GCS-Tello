@@ -142,6 +142,7 @@ main {
 }
 .video .display{
   background-color: #171821;
+  outline: none;
 }
 .stats .display {
   height: 95%;

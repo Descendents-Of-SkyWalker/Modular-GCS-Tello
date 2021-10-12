@@ -1,3 +1,15 @@
+const electron = require('electron');
+const {ipcRenderer} = electron;
+
+let statsData = {}
+
+ipcRenderer.on("stats", (event, data) => {
+    statsData = data;
+    console.log(statsData);  
+});
+
+
+
 const bar = document.querySelector('.bar');
 const links = document.querySelectorAll('a[href^="#"]');
 const sections = document.querySelectorAll('section');
