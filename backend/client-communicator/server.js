@@ -21,19 +21,15 @@ expressApp.post("/videoFrame", (req, res) => {
 
 expressApp.route("/stats")
     .post((req, res) => {
-        if (!err) {
             statsData = req.body.stats
             res.status(200).json({
                 status: "success",
             });
-        }
     }).get((req, res) => {
-        if (!err) {
-            res.status(200).json({
+        res.status(200).json({
                 status: "success",
                 statsData
             });
-        }
     })
 
 let droneConnection;
@@ -41,22 +37,21 @@ let connectionFlag = false;
 
 const startServerClient = (setupObject) => {
   console.log(`running at port ${setupObject.port}`);
+
   const python = child_process.spawn("python3", [
-    "backend/drone-engine/main.py",
+    `${__dirname}/../drone-engine/main.py`,
     setupObject.speed,
     setupObject.movementSensitivity,
     setupObject.turnSensitivity,
     setupObject.port,
   ]);
 
-  python.stdout.on('data', (data) => {
-    if(data.toString('utf8') == 'start'){
-      droneConnection = net.connect({ port: setupObject.port + 1}, (err) => {
-        connectionFlag = true;
-        console.log("connected");
-      });
-    }
-  })
+    python.stdout.on('data', (chunk) => {
+      if (chunk.toString('utf8') == 'init')
+        droneConnection = net.connect({ port: setupObject.port + 1}, (err) => {
+          connectionFlag = true;
+        });
+    })
 };
 
 let main;
@@ -67,7 +62,7 @@ app.on("ready", () => {
       contextIsolation: false,
     },
   });
-  expressApp.listen(port, () => {startServerClient({
+  expressApp.listen(15000, () => {startServerClient({
     port: 15000,
     speed: 20,
     movementSensitivity: 1,

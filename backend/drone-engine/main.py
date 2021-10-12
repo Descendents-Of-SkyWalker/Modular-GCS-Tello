@@ -6,13 +6,12 @@ import socket
 import requests
 import sys
 
-
 args = {}
 
-args['speed'] = sys.argv[1]
-args['movement_sensitivity'] = sys.argv[2]
-args['turn_sensitivity'] = sys.argv[3]
-args['port'] = sys.argv[4]
+args['speed'] = int(sys.argv[1])
+args['movement_sensitivity'] = int(sys.argv[2])
+args['turn_sensitivity'] = int(sys.argv[3])
+args['port'] = int(sys.argv[4])
 
 
 drone, frame = drone_helpers.initialize(args['speed'])
@@ -26,7 +25,6 @@ def initializeSocket() -> socket:
     request = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     request.bind(('localhost', port + 1))
     request.listen()
-    print('connection established');
     conn, addr = request.accept()
     return conn
 
@@ -51,20 +49,21 @@ def videoFrameSender():
 
 def statsDataSender():
     while True:
+        data = Stats.getStats()
         postData(
             'stats',
-            Stats.getStats()
+            data
         )
         sleep(0.5)
 
+sys.stdout.write('init')
+sys.stdout.flush()
 
 connection = initializeSocket()
 
 
 def drone_controller_interface():
     with connection as conn:
-        print('start')
-        sys.stdout.flush()
         while True:
             try:
                 data = conn.recv(1).decode('utf-8')
@@ -105,3 +104,4 @@ t3 = threading.Thread(target=statsDataSender)
 
 t1.start()
 t2.start()
+t3.start()
