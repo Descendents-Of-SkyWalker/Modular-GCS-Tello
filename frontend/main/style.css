@@ -164,7 +164,7 @@ h2 {
   display: flex;
   justify-content: space-between;
 }
-#reset, #set {
+.setter-btn {
   font-weight: 400;
   letter-spacing: 0.68px;
   background: #0277FA33;

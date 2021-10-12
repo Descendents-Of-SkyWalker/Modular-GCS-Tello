@@ -38,23 +38,7 @@ let connectionFlag = false;
 
 const startServerClient = () => {
     console.log(`running at port ${port}`);
-    // let python = child_process.spawn('python3', ['backend/drone-engine/main.py']);
-    
-    // python.stdout.on('data', (data) => {
-    //     console.log(`python data: ${data}`);
-    // });
-
-    // python.stderr.on('data', (data) => {
-    //     console.error('err: ', data.toString());
-    //   });
-      
-    //   python.on('error', (error) => {
-    //     console.error('error: ', error.message);
-    //   });
-      
-    //   python.on('close', (code) => {
-    //     console.log('child process exited with code ', code);
-    //   });
+    const python = child_process.spawn('python3', ['backend/drone-engine/main.py', ]);
 
     setTimeout(() => {
         droneConnection = net.connect({port: 15001}, (err) => {
@@ -75,7 +59,7 @@ app.on('ready', () => {
             contextIsolation: false
         }
     });
-    expressApp.listen(port, startServerClient);
+    // expressApp.listen(port, () => {startServerClient()});
 
     ipcMain.on("keyboard:event", (event, data) => {
         if(connectionFlag){
@@ -86,5 +70,10 @@ app.on('ready', () => {
         }
     });
 
+    main.loadURL(`file://${__dirname}/../../frontend/main/dashboard.html`);
+
+
+    setTimeout(() => {
     main.loadURL(`file://${__dirname}/../../frontend/index.html`);
+    }, 2000)
 });
