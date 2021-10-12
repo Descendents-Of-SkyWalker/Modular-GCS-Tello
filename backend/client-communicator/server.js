@@ -51,7 +51,7 @@ const startServerClient = (setupObject) => {
 
   python.stdout.on('data', (data) => {
     if(data.toString('utf8') == 'start'){
-      droneConnection = net.connect({ port: setupObject.port }, (err) => {
+      droneConnection = net.connect({ port: setupObject.port + 1}, (err) => {
         connectionFlag = true;
         console.log("connected");
       });
@@ -67,7 +67,12 @@ app.on("ready", () => {
       contextIsolation: false,
     },
   });
-  // expressApp.listen(port, () => {startServerClient()});
+  expressApp.listen(port, () => {startServerClient({
+    port: 15000,
+    speed: 20,
+    movementSensitivity: 1,
+    turnSensitivity: 1
+  })});
 
   ipcMain.on("keyboard:event", (event, data) => {
     if (connectionFlag) {
