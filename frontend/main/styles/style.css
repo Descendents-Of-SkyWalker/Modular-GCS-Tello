@@ -176,6 +176,7 @@ h2 {
   justify-content: space-between;
 }
 .setter-btn {
+  cursor: pointer;
   font-weight: 400;
   letter-spacing: 0.68px;
   background: #0277FA33;

@@ -6,6 +6,7 @@ const { app, BrowserWindow, ipcMain } = electron;
 
 const expressApp = express();
 let statsData = {}
+let main;
 
 // middleware setup
 expressApp.use(express.json({ limit: "50mb" }));
@@ -50,11 +51,11 @@ const startServerClient = (setupObject) => {
       if (chunk.toString('utf8') == 'init')
         droneConnection = net.connect({ port: setupObject.port + 1}, (err) => {
           connectionFlag = true;
+          main.loadURL(`file://${__dirname}/../../frontend/main/dashboard.html`);
         });
     })
 };
 
-let main;
 app.on("ready", () => {
   main = new BrowserWindow({
     webPreferences: {
@@ -62,12 +63,12 @@ app.on("ready", () => {
       contextIsolation: false,
     },
   });
-  expressApp.listen(15000, () => {startServerClient({
-    port: 15000,
-    speed: 20,
-    movementSensitivity: 1,
-    turnSensitivity: 1
-  })});
+
+  main.loadURL(`file://${__dirname}/../../frontend/main/setup.html`);
+  
+  ipcMain.on("config:data", (event, data) => {
+    expressApp.listen(data.port, () => startServerClient(data));
+  })
 
   ipcMain.on("keyboard:event", (event, data) => {
     if (connectionFlag) {
@@ -76,8 +77,5 @@ app.on("ready", () => {
       });
     }
   });
-
-  // main.loadURL(`file://${__dirname}/../../frontend/main/dashboard.html`);
-
-    main.loadURL(`file://${__dirname}/../../frontend/index.html`);
+  
 });

@@ -26,7 +26,7 @@ deflt.addEventListener('click', () => {
     speedVal.innerHTML = 20;
     sensitivityVal.innerHTML = 2;
     turnVal.innerHTML = 2;
-    port.innerText = "_____";
+    port.innerText = "15000";
 });
 
 const set = document.querySelector('#set');
@@ -37,10 +37,13 @@ set.addEventListener('click', () => {
 
 const start = document.querySelector('#start');
 start.addEventListener('click', () => {
-    console.log(parseInt(speedVal.innerHTML));
-    console.log(parseInt(sensitivityVal.innerHTML));
-    console.log(parseInt(turnVal.innerHTML));
-    console.log(parseInt(port.innerHTML));
+    const setupObject = {};
+    setupObject.speed = parseInt(speedVal.innerHTML);
+    setupObject.movementSensitivity = parseInt(sensitivityVal.innerHTML);
+    setupObject.turnSensitivity = parseInt(turnVal.innerHTML);
+    setupObject.port = parseInt(port.innerHTML);
+
+    console.log(setupObject);
 })
 
 const closeBtn = document.querySelector('#close');
@@ -49,7 +52,7 @@ closeBtn.addEventListener('click', () => {
     document.querySelector('.control').classList.remove('hide');
     portVal = document.querySelector('#portNum').value;
     if (portVal === "") {
-        port.innerText = "_____";
+        port.innerText = "15000";
     }
     else {
         port.innerText = portVal;
