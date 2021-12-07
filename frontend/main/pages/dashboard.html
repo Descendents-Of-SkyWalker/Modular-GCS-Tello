@@ -33,9 +33,21 @@
                         <div class="graph-control">
                             <h2>Graphs</h2>
                             <button class="graph-btn" id="one">Altitude vs Time</button>
-                            <button class="graph-btn" id="two">Altitude vs Time</button>
-                            <button class="graph-btn" id="three">Altitude vs Time</button>
-                            <button class="graph-btn" id="four">Altitude vs Time</button>
+                            <button class="graph-btn" id="two">Drone Temperature vs Time</button>
+                            <div class="battery">
+                                <h2>Battery</h2>
+                                <div class="content">
+                                    <div class="indicator">
+                                        <div class="outer-circle">
+                                            <div class="inner-circle">
+                                                <p class="before">50%</p>
+                                                <div class="after"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="level">Remaining: 50%</div>
+                                </div>
+                            </div>
                         </div>
                         <div class="graph-container">
                             <h2>Altitude vs Time</h2>
@@ -44,18 +56,21 @@
                         </div>
                     </div>
                     <div class="drone-stats">
-                        <div class="battery">
-                            <h2>Battery</h2>
+                        <div class="principal-axis">
+                            <h2>Principal Axis</h2>
                             <div class="content">
-                                <div class="indicator">
-                                    <div class="outer-circle">
-                                        <div class="inner-circle">
-                                            <p class="before">50%</p>
-                                            <div class="after"></div>
-                                        </div>
-                                    </div>
+                                <div id="x1">
+                                    <label for="">pitch</label>
+                                    <p><span id="xsval">10</span>°</p>
                                 </div>
-                                <div id="level">Remaining: 50%</div>
+                                <div id="y1">
+                                    <label for="">yaw</label>
+                                    <p><span id="ysval">20</span>°</p>
+                                </div>
+                                <div id="z1">
+                                    <label for="">roll</label>
+                                    <p><span id="zsval">30</span>°</p>
+                                </div>
                             </div>
                         </div>
                         <div class="speed">
@@ -63,15 +78,15 @@
                             <div class="content">
                                 <div id="x1">
                                     <label for="">x - axis:</label>
-                                    <p><span id="xsval">10</span> m/s</p>
+                                    <p><span id="xsval">10</span> cm/s</p>
                                 </div>
                                 <div id="y1">
                                     <label for="">y - axis:</label>
-                                    <p><span id="ysval">20</span> m/s</p>
+                                    <p><span id="ysval">20</span> cm/s</p>
                                 </div>
                                 <div id="z1">
                                     <label for="">z - axis:</label>
-                                    <p><span id="zsval">30</span> m/s</p>
+                                    <p><span id="zsval">30</span> cm/s</p>
                                 </div>
                             </div>
                         </div>

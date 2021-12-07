@@ -16,7 +16,8 @@ args['port'] = int(sys.argv[4])
 
 drone, frame = drone_helpers.initialize(args['speed'])
 Stats = drone_helpers.DroneStatistics(drone)
-Controller = drone_helpers.DroneController(drone, args['movement_sensitivity'], args['turn_sensitivity'])
+Controller = drone_helpers.DroneController(
+    drone, args['movement_sensitivity'], args['turn_sensitivity'])
 port = args['port']
 headers = {'content-type': 'application/json'}
 
@@ -29,13 +30,13 @@ def initializeSocket() -> socket:
     return conn
 
 
-def postData(path:str, data:str) -> requests.Response:
+def postData(path: str, data: str) -> requests.Response:
     res = requests.post(
-        url = f'http://localhost:{port}/{path}',
-        data = json.dumps({
-            'frame' if path == 'videoFrame' else 'stats' : data
+        url=f'http://localhost:{port}/{path}',
+        data=json.dumps({
+            'frame' if path == 'videoFrame' else 'stats': data
         }),
-        headers = headers
+        headers=headers
     )
     return res
 
@@ -47,6 +48,7 @@ def videoFrameSender():
             drone_helpers.get_video_frame(frame)
         )
 
+
 def statsDataSender():
     while True:
         data = Stats.getStats()
@@ -55,6 +57,7 @@ def statsDataSender():
             data
         )
         sleep(0.5)
+
 
 sys.stdout.write('init')
 sys.stdout.flush()
